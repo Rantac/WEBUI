@@ -22,10 +22,10 @@ jobs:
     - name: Build WebUI
       run: dotnet build WEBUI/WEBUI.csproj --configuration ${{ env.BuildConfiguration }}
     - name: Publish WebUI
-      run: dotnet publish ${{ env.Parameters_RestoreBuildProjects }} -r linux-x64 --output ${{ runner.temp }}/WEBUI.csproj
+      run: dotnet publish ${{ env.Parameters_RestoreBuildProjects }} -r linux-x64 --output ${{ runner.temp }}/WEBUI
     - name: Publish Artifact
       if: success() || failure()
       uses: actions/upload-artifact@v4.1.0
       with:
         name: drop
-        path: "${{ runner.temp }}"
+        path: "${{ runner.temp }}/WEBUI"
