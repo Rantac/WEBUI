@@ -2,30 +2,30 @@ name: WEBUI/CI_for_WebUI
 on:
   workflow_dispatch:
 env:
-  BuildConfiguration: Release
-  BuildPlatform: any cpu
-  Parameters_RestoreBuildProjects: "**/*.csproj"
+  path_to_project: WEBUI/WEBUI.csproj
+  output_path: CMHL.WEBUI
   system_debug: 'false'
+
 jobs:
-  Job_1:
-    name: Agent job 1
-    runs-on: ubuntu-20.04
+
+  build:
+    runs-on: ubuntu-latest
     steps:
-    - name: checkout
-      uses: actions/checkout@v4.1.0
-    - name: Use .NET Core sdk 5.0.404
-      uses: actions/setup-dotnet@v4.0.0
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 5.0.404
-    - name: Restore WebUI
-      run: dotnet restore WEBUI/WEBUI.csproj --verbosity "Detailed"
-    - name: Build WebUI
-      run: dotnet build WEBUI/WEBUI.csproj --configuration ${{ env.BuildConfiguration }}
-    - name: Publish WebUI
-      run: dotnet publish ${{ env.Parameters_RestoreBuildProjects }} -r linux-x64 --output ${{ runner.temp }}/WEBUI
-    - name: Publish Artifact
-      if: success() || failure()
-      uses: actions/upload-artifact@v4.1.0
-      with:
-        name: drop
-        path: "\\\\my\\share\\${{ github.workflow }}\\${{ github.run_number }}"
+        dotnet-version: 5.0.x
+
+    - name: Restore Service
+      run: dotnet restore $path_to_project --verbosity "Detailed"
+
+    - name: Build Service
+      run: dotnet build $path_to_project --configuration ${{ env.BuildConfiguration }}
+
+    - name: Publish Service
+      run: dotnet publish $path_to_project -r linux-x64 --output ${{ runner.temp }}/output_path
+
+    - name: Publish Service
+      run: |
+        dotnet publish $path_to_project -c Release -o $GITHUB_WORKSPACE 
