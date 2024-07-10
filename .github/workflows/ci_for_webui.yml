@@ -18,10 +18,10 @@ jobs:
         dotnet-version: 5.0.x
 
     - name: Restore Service
-      run: dotnet restore $path_to_project --verbosity "Detailed"
+      run: dotnet restore $path_to_project
 
     - name: Build Service
-      run: dotnet build $path_to_project --configuration ${{ env.BuildConfiguration }}
+      run: dotnet build $path_to_project 
 
     - name: Publish Service
       run: dotnet publish $path_to_project -r linux-x64 --output ${{ runner.temp }}/output_path
