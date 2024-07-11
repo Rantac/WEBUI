@@ -24,26 +24,25 @@ jobs:
       with:
         dotnet-version: 5.0.x
 
-    # - name: Restore Service
-    #   run: dotnet restore $path_to_project
+    - name: Restore Service
+      run: dotnet restore $path_to_project
 
-    # - name: Build Service
-    #   run: dotnet build $path_to_project --configuration $BuildConfiguration -r linux-x64
+    - name: Build Service
+      run: dotnet build $path_to_project --configuration $BuildConfiguration -r linux-x64
 
-    - name: testing step
+    - name: Publish Service
       run: |
-        echo $GITHUB_WORKSPACE
+        dotnet publish $path_to_project -r linux-x64 --output $GITHUB_WORKSPACE/$output_path
+        zip -r $GITHUB_WORKSPACE/$output_zip $GITHUB_WORKSPACE/$output_path
 
-    # - name: Publish Service
-    #   run: |
-    #     dotnet publish $path_to_project -r linux-x64 --output $GITHUB_WORKSPACE/$output_path
-    #     zip -r $GITHUB_WORKSPACE/$output_zip $GITHUB_WORKSPACE/$output_path
-
-    # - name: Publish Artifact drop
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: drop
-    #     path: /home/runner/work/WEBUI/WEBUI/CMHL.WEBUI/$output_zip
-    #     if-no-files-found: error
-    #     retention-days: 1
+    - name: Publish Artifact drop
+      uses: actions/upload-artifact@v4
+      with:
+        name: drop
+        run: |
+          cd $GITHUB_WORKSPACE
+          pwd
+        #path: /home/runner/work/WEBUI/WEBUI/CMHL.WEBUI/$output_zip
+        if-no-files-found: error
+        retention-days: 1
 
