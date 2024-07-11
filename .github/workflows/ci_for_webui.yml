@@ -4,6 +4,7 @@ on:
 env:
   path_to_project: WEBUI/WEBUI.csproj
   output_path: CMHL.WEBUI
+  BuildConfiguration: Release
   system_debug: 'false'
 
 jobs:
