@@ -1,6 +1,10 @@
 name: WEBUI/CI_for_WebUI
+#on:
+  #workflow_dispatch:
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - master
 env:
   path_to_project: WEBUI/WEBUI.csproj
   output_path: CMHL.WEBUI
