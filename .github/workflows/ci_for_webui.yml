@@ -9,7 +9,7 @@ env:
   path_to_project: WEBUI/WEBUI.csproj
   output_path: CMHL.WEBUI
   output_zip: CMHL.WEBUI.zip
-  publish_path: /home/runner/work/WEBUI/WEBUI
+  publish_path: 
   BuildConfiguration: Release
   system_debug: 'false'
 
@@ -39,7 +39,25 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: drop
-        path: $publish_path/*.zip
+        path: /home/runner/work/WEBUI/WEBUI/*.zip
         if-no-files-found: error
         retention-days: 1
 
+  deploy: 
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+     - name: Download drop
+       uses: actions/download-artifact@v4
+       with:
+         name: drop
+
+     - name: Copy via ssh 
+        uses: garygrossgarten/github-action-scp@v0.8.0
+        with:
+          local: $GITHUB_WORKSPACE
+          remote: /home/azureuser/WEBUI
+          host: ${{ secrets.CMHL_PREPROD_TEST_HOSTT }} 
+          username: ${{ secrets.CMHL_PREPROD_TEST_USERNAME }}  
+          password: ${{ secrets.CMHL_PREPROD_TEST_PASSWORD }} 
+          port: ${{ secrets.cmhl_preprod_test_PORT }}
