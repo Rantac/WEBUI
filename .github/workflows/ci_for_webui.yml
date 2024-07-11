@@ -33,11 +33,13 @@ jobs:
       run: |
         dotnet publish $path_to_project -r linux-x64 --output $GITHUB_WORKSPACE/$output_path
         zip -r $GITHUB_WORKSPACE/$output_dir $GITHUB_WORKSPACE/$output_path
+        cd $GITHUB_WORKSPACE/$output_path
+        ls
 
-    - name: Publish Artifact drop
-      uses: actions/upload-artifact@v2.3.1
-      with:
-        name: drop
-        path: $GITHUB_WORKSPACE/output_dir
-        if-no-files-found: error
+    # - name: Publish Artifact drop
+    #   uses: actions/upload-artifact@v2.3.1
+    #   with:
+    #     name: drop
+    #     path: $GITHUB_WORKSPACE/output_dir
+    #     if-no-files-found: error
 
