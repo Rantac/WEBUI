@@ -9,7 +9,7 @@ env:
   path_to_project: WEBUI/WEBUI.csproj
   output_path: CMHL.WEBUI
   output_zip: CMHL.WEBUI.zip
-  publish_path: /home/runner/work/WEBUI/WEBUI/CMHL.WEBUI/$output_zip
+  publish_path: $GITHUB_WORKSPACE
   BuildConfiguration: Release
   system_debug: 'false'
 
@@ -32,9 +32,7 @@ jobs:
 
     - name: testing step
       run: |
-        cd $GITHUB_ACTION_PATH
-        pwd
-        ls
+        echo $publish_path
 
     # - name: Publish Service
     #   run: |
