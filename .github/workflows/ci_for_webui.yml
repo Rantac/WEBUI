@@ -9,7 +9,7 @@ env:
   path_to_project: WEBUI/WEBUI.csproj
   output_path: CMHL.WEBUI
   output_zip: CMHL.WEBUI.zip
-  publish_path: $GITHUB_WORKSPACE
+  publish_path: /home/runner/work/WEBUI/WEBUI/$output_path
   BuildConfiguration: Release
   system_debug: 'false'
 
@@ -34,13 +34,12 @@ jobs:
       run: |
         dotnet publish $path_to_project -r linux-x64 --output $GITHUB_WORKSPACE/$output_path
         zip -r $GITHUB_WORKSPACE/$output_zip $GITHUB_WORKSPACE/$output_path
-        cd $GITHUB_WORKSPACE
 
     - name: Publish Artifact drop
       uses: actions/upload-artifact@v4
       with:
         name: drop
-        path: ./$output_zip
+        path: $publish_path/*.zip
         if-no-files-found: error
         retention-days: 1
 
