@@ -39,7 +39,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: drop
-        path: $publish_path/*.zip
+        path: /home/runner/work/WEBUI/WEBU/CMHL.WEBUI/*.zip
         if-no-files-found: error
         retention-days: 1
 
