@@ -30,8 +30,9 @@ jobs:
       run: dotnet build $path_to_project --configuration $BuildConfiguration -r linux-x64
 
     - name: Publish Service
-      run: dotnet publish $path_to_project -r linux-x64 --output $GITHUB_WORKSPACE/$output_path
-        #zip -r $GITHUB_WORKSPACE/$output_dir $GITHUB_WORKSPACE/$output_path
+      run: |
+        dotnet publish $path_to_project -r linux-x64 --output $GITHUB_WORKSPACE/$output_path
+        zip -r $GITHUB_WORKSPACE/$output_dir $GITHUB_WORKSPACE/$output_path
         #cd $GITHUB_WORKSPACE
         #ls
 
@@ -39,6 +40,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: drop
-        path: home/runner/work/WEBUI/WEBUI
-        #if-no-files-found: error
+        path: home/runner/work/WEBUI/WEBUI/CMHL.WEBUI.zip
+        if-no-files-found: error
 
