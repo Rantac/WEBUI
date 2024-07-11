@@ -39,7 +39,8 @@ jobs:
       with:
         name: drop
         #path: /home/runner/work/WEBUI/WEBUI/CMHL.WEBUI
-        path: /$GITHUB_WORKSPACE/$output_zip
+        run: cd $GITHUB_WORKSPACE
+        path: $output_zip
         if-no-files-found: error
         retention-days: 1
 
