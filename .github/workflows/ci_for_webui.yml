@@ -37,7 +37,8 @@ jobs:
     #     name: drop
     #     path: $GITHUB_WORKSPACE/$output_path
     #     if-no-files-found: error
+    #  cd ${{ github.workspace }}
     - name: Testing steps
       run: |
-       cd ${{ github.workspace }}
+       cd $GITHUB_WORKSPACE
        ls
