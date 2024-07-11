@@ -42,7 +42,4 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           pwd
-        #path: /home/runner/work/WEBUI/WEBUI/CMHL.WEBUI/$output_zip
-        if-no-files-found: error
-        retention-days: 1
 
