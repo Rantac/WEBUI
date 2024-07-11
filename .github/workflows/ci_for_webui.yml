@@ -54,7 +54,7 @@ jobs:
      - name: Copy via ssh 
        uses: garygrossgarten/github-action-scp@v0.8.0
        with:
-          local: $GITHUB_WORKSPACE
+          local: /home/runner/work/WEBUI/WEBUI
           remote: /home/azureuser/WEBUI
           host: ${{ secrets.CMHL_PREPROD_TEST_HOSTT }} 
           username: ${{ secrets.CMHL_PREPROD_TEST_USERNAME }}  
