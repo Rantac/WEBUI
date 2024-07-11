@@ -30,7 +30,8 @@ jobs:
       run: dotnet build $path_to_project --configuration $BuildConfiguration -r linux-x64
 
     - name: Publish Service
-      run: dotnet publish $path_to_project -r linux-x64 --output $GITHUB_WORKSPACE/$output_path
+      run: |
+        dotnet publish $path_to_project -r linux-x64 --output $GITHUB_WORKSPACE/$output_path
         zip -r $GITHUB_WORKSPACE/$output_zip $GITHUB_WORKSPACE/$output_path
 
     - name: Publish Artifact drop
@@ -40,4 +41,5 @@ jobs:
         #path: /home/runner/work/WEBUI/WEBUI/CMHL.WEBUI
         path: /$GITHUB_WORKSPACE/$output_zip
         if-no-files-found: error
+        retention-days: 1
 
