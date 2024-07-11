@@ -25,8 +25,11 @@ jobs:
       run: dotnet build $path_to_project --configuration $BuildConfiguration -r linux-x64
 
     - name: Publish Service
-      run: dotnet publish $path_to_project -r linux-x64 --output ${{ runner.temp }}/output_path
+      run: dotnet publish $path_to_project -r linux-x64 --output $GITHUB_WORKSPACE/$output_path
 
-    - name: Publish Service
-      run: |
-        dotnet publish $path_to_project -c Release -o $GITHUB_WORKSPACE 
+    - name: Publish Artifact drop
+      uses: actions/upload-artifact@v2.3.1
+      with:
+        name: drop
+        path: $GITHUB_WORKSPACE/$output_path
+        if-no-files-found: error
