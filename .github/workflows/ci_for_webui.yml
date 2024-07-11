@@ -9,7 +9,7 @@ env:
   path_to_project: WEBUI/WEBUI.csproj
   output_path: CMHL.WEBUI
   output_zip: CMHL.WEBUI.zip
-  publish_path: /home/runner/work/WEBUI/WEBUI/$output_path
+  publish_path: /home/runner/work/WEBUI/WEBUI
   BuildConfiguration: Release
   system_debug: 'false'
 
@@ -39,7 +39,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: drop
-        path: /home/runner/work/WEBUI/WEBUI/*.zip
+        path: $publish_path/*.zip
         if-no-files-found: error
         retention-days: 1
 
