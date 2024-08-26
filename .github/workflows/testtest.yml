@@ -1,10 +1,16 @@
 name: CI/CD Pipeline
 
 on:
-  push:
-    branches:
-      - master
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'preprod'
+        type: choice
+        options:
+          - preprod
+          - prod
 
 jobs:
   build:
@@ -18,19 +24,21 @@ jobs:
         run: echo "Build Success"
 
   deploy-preprod:
-    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.environment == 'preprod' }}
     needs: build
-    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    environment: preprod
 
     steps:
       - name: Checkout code
         run: echo "Preprod Deployment Done"
 
   deploy-prod:
-    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.environment == 'prod' }}
     needs: build
-    if: github.event_name == 'workflow_dispatch'
-
+    runs-on: ubuntu-latest
+    environment: prod
+    
     steps:
       - name: Checkout code
         run: echo "Prod Deployment Done"
